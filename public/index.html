@@ -8,11 +8,11 @@
 </head>
 <body class="container-fluid p-3">
   <form onsubmit="return handleCreate(event)" class="d-flex align-items-center p-2">
-    <input class="form-control" id="taskTitle" aria-describedby="emailHelp" placeholder="Task Name">
+    <input class="form-control" id="taskTitle" aria-describedby="emailHelp" placeholder="insert your order">
     <button type="submit" class="ml-3 btn btn-primary">Submit</button>
   </form>
 
-  <h1 class="p-2">My Tasks</h1>
+  <h1 class="p-2">Portafoglio Ordini</h1>
   <div id="tasks" class="p-2 row m-0"></div>
 
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
@@ -81,7 +81,7 @@
     function createTask(task) {
       const elem = document.createElement('div');
       elem.setAttribute('id', task.id);
-      elem.setAttribute('class', 'card card-body p-2 col-4 row m-0 flex-row d-flex justify-content-between align-items-center');
+      elem.setAttribute('class', 'card card-body p-2 col-10 row m-0 flex-row d-flex justify-content-between align-items-center');
       let taskElem;
 
       if (task.status === 'incomplete') { 
