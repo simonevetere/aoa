@@ -75,6 +75,11 @@
     }
     function close(id){
       document.getElementById(id).remove()
+      let updatedOrder = {
+        stato: 'closed'
+      }
+      return firestore.collection('ordini').doc(id).update(updatedOrder)
+      
     }
     // dom functions
     function createTask(task) {
