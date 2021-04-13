@@ -41,6 +41,7 @@
       snapshots.forEach(function(doc) {
         data.push({ id: doc.id, ...doc.data() });
       })
+      document.getElementById('tasks').innerHTML = "";
       return data;
     }
 
@@ -122,7 +123,7 @@
       .then(tasks => tasks.map(task => createTask(task)))
     };
 
-    fetchTasks();
+    setInterval('fetchTasks()', 1000);
   </script>
 </body>
 </html>
