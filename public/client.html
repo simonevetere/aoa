@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body class="container-fluid p-3">
+  <form onsubmit="return handleCreate(event)" class="d-flex align-items-center p-2">
+    <input class="form-control" id="orderData" aria-describedby="emailHelp" placeholder="insert your data">
+    <input class="form-control" id="orderDesc" aria-describedby="emailHelp" placeholder="insert your desc">
+    <input class="form-control" id="orderIduser" aria-describedby="emailHelp" placeholder="insert your iduser">
+    <input class="form-control" id="orderStato" aria-describedby="emailHelp" placeholder="insert your stato">
+    <input class="form-control" id="orderTavolo" aria-describedby="emailHelp" placeholder="insert your tavolo">
+    <button type="submit" class="ml-3 btn btn-primary">Submit</button>
+  </form>
+
+  <h1 class="p-2">client ordine</h1>
+
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-firestore.js"></script>
+  <script>
+    // variables
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDOR53gRsCW30xLiqazUZGp8Mm2euQF8go",
+    authDomain: "monviso-8d767.firebaseapp.com",
+    databaseURL: "https://monviso-8d767-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "monviso-8d767",
+    storageBucket: "monviso-8d767.appspot.com",
+    messagingSenderId: "859501920236",
+    appId: "1:859501920236:web:050d08b3658c16f92dcac9",
+    measurementId: "G-E48JZDK5W7"
+  };
+    firebase.initializeApp(firebaseConfig);
+    const firestore = firebase.firestore();
+    const tasksDOM = document.getElementById('tasks');
+    const orderData = document.getElementById('orderData');
+    const orderDesc = document.getElementById('orderDesc');
+    const orderIduser = document.getElementById('orderIduser');
+    const orderStato = document.getElementById('orderStato');
+    const orderTavolo = document.getElementById('orderTavolo');
+
+
+    // form functions
+    function handleCreate(event) {
+      event.preventDefault();
+      let ordini = {
+        data: orderData.value,
+        desc: orderDesc.value,
+        iduser: orderIduser.value,
+        stato: orderStato.value,
+        tavolo: orderTavolo.value
+      }
+      return firestore.collection('ordini').add(ordini)
+      .then(ref => {
+        ordini.id = ref.id;
+        orderData.value = '';
+        orderDesc.value = '';
+        orderIduser.value = '';
+        orderStato.value = '';
+        orderTavolo.value = '';
+      })
+    }
+
+
+  </script>
+</body>
+</html>
