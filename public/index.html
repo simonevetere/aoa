@@ -8,7 +8,6 @@
 </head>
 <body class="container-fluid p-3">
 
-  <h1 class="p-2">Portafoglio Ordini</h1>
   <div id="tasks" class="p-2 row m-0"></div>
 
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
@@ -30,6 +29,7 @@
     const firestore = firebase.firestore();
     const tasksDOM = document.getElementById('tasks');
     const taskInputDOM = document.getElementById('taskTitle');
+    var anagrafica = [];
 
     // utility functions
     function cleanData(snapshots) {
@@ -38,6 +38,17 @@
         data.push({ id: doc.id, ...doc.data() });
       })
       document.getElementById('tasks').innerHTML = "";
+      return data;
+    }
+
+    function cleanDataAnag(snapshots) {
+      let data = [];
+      snapshots.forEach(function(doc) {
+        data.push({ id: doc.id, ...doc.data() });
+      })
+      document.getElementById('tasks').innerHTML = "";
+      anagrafica = data[0];
+
       return data;
     }
 
@@ -73,6 +84,7 @@
       return firestore.collection('tasks').doc(id).delete()
       .then(ref => document.getElementById(id).remove())
     }
+
     function close(id){
       document.getElementById(id).remove()
       let updatedOrder = {
@@ -84,8 +96,8 @@
     // dom functions
     function createTask(task) {
       const toast = document.createElement('div');
-      console.log(task);
-      toast.innerHTML = '<div class="toast" style="opacity : 1; margin : 25px;" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div><div id="tasks" class="toast-body">' + task.desc+ '</div></div>';
+
+      toast.innerHTML = '<div class="toast" style="opacity : 1; margin : 25px; height: 300%" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div><div id="tasks" class="toast-body">' + task.desc+ '</div></div>';
       
       toast.setAttribute('id', task.id);
       toast.addEventListener("click", (e) => this.close(task.id));
@@ -94,12 +106,52 @@
 
     // firebase functions
     function fetchTasks() {
-      return firestore.collection('ordini').where("stato", "==", "open").get()
+
+      return firestore.collection('ordini').where("stato", "==", "open").where("idanag", "==", anagrafica.nome).get()
       .then(snapshots => cleanData(snapshots))
       .then(tasks => tasks.map(task => createTask(task)))
     };
 
-    setInterval('fetchTasks()', 1000);
+    function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+      read_object(sURLVariables);
+
+        return sURLVariables;
+    };
+
+    function read_object(object_all_params){
+      first_access = is_first_access(object_all_params);
+      if(first_access){
+        add_url_params("tour=0");
+      }
+      for(param in object_all_params){
+          console.log(object_all_params[param].indexOf("idanag"));
+        if(object_all_params[param].indexOf("idanag") > -1){
+          const idanag = object_all_params[param].substring( object_all_params[param].indexOf("=")).substring(1);
+          return firestore.collection('anagrafica').where("codice_cliente", "==", idanag).get()
+          .then(snapshots => cleanDataAnag(snapshots))
+        } 
+      }
+    }
+
+    function is_first_access(object_all_params){
+      if(JSON.stringify(object_all_params).indexOf('tour') >= 0){
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    function add_url_params(params){
+      window.location.search = window.location.search + "&" + params;
+    }
+
+    
+    getUrlParameter();
+    setInterval('fetchTasks()', 2000);
   </script>
 </body>
 </html>

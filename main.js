@@ -4,6 +4,7 @@ function getUrlParameter(sParam) {
         sParameterName,
         i;
 	read_object(sURLVariables);
+	console.log(sURLVariables);
     return sURLVariables;
 };
 
