@@ -47,7 +47,8 @@
         desc: orderDesc.value,
         iduser: orderIduser.value,
         stato: 'open',
-        tavolo: orderTavolo.value
+        tavolo: orderTavolo.value,
+        idanag: 'monviso'
       }
       return firestore.collection('ordini').add(ordini)
       .then(ref => {

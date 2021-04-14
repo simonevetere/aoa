@@ -8,7 +8,7 @@
 </head>
 <body class="container-fluid p-3">
 
-  <div id="tasks" class="p-2 row m-0"></div>
+  <div id="tasks" style="width: 10000px;" class="p-2 row m-0"></div>
 
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-firestore.js"></script>
@@ -97,7 +97,7 @@
     function createTask(task) {
       const toast = document.createElement('div');
 
-      toast.innerHTML = '<div class="toast" style="opacity : 1; margin : 25px; height: 300%" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div><div id="tasks" class="toast-body">' + task.desc+ '</div></div>';
+      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 300px; margin-left: 25px" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div><div id="tasks" class="toast-body">' + task.desc+ '</div></div>';
       
       toast.setAttribute('id', task.id);
       toast.addEventListener("click", (e) => this.close(task.id));
