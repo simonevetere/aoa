@@ -11,12 +11,9 @@
     <input class="form-control" id="orderData" aria-describedby="emailHelp" placeholder="insert your data">
     <input class="form-control" id="orderDesc" aria-describedby="emailHelp" placeholder="insert your desc">
     <input class="form-control" id="orderIduser" aria-describedby="emailHelp" placeholder="insert your iduser">
-    <input class="form-control" id="orderStato" aria-describedby="emailHelp" placeholder="insert your stato">
     <input class="form-control" id="orderTavolo" aria-describedby="emailHelp" placeholder="insert your tavolo">
     <button type="submit" class="ml-3 btn btn-primary">Submit</button>
   </form>
-
-  <h1 class="p-2">client ordine</h1>
 
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-firestore.js"></script>
@@ -39,7 +36,6 @@
     const orderData = document.getElementById('orderData');
     const orderDesc = document.getElementById('orderDesc');
     const orderIduser = document.getElementById('orderIduser');
-    const orderStato = document.getElementById('orderStato');
     const orderTavolo = document.getElementById('orderTavolo');
 
 
@@ -50,7 +46,7 @@
         data: orderData.value,
         desc: orderDesc.value,
         iduser: orderIduser.value,
-        stato: orderStato.value,
+        stato: 'open',
         tavolo: orderTavolo.value
       }
       return firestore.collection('ordini').add(ordini)
