@@ -5,10 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Firebase Form</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body class="container-fluid p-3">
+  <style type="text/css">
+    div.scrollmenu {
+  background-color: white;
+  overflow: auto;
+  white-space: nowrap;
+}
 
-  <div id="tasks" style="width: 10000px;" class="p-2 row m-0"></div>
+  div.scrollmenu button {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+
+  div.scrollmenu button:hover {
+    background-color: #777;
+  }
+
+  div.scrollmenu div {
+    display: inline-block;
+    padding: 14px;
+    text-decoration: none;
+  }
+
+  </style>
+</head>
+<body style="overflow-y: hidden" class="container-fluid p-3">
+
+  <div style="position: static;" class="scrollmenu">
+    <button onclick="handleCreates('C-')" id="C" value="C-" class="btn btn-primary" style="height: 100%; width: 20%"> C </button>
+    <button onclick="handleCreates('CM-')" id="CM" value="CM-" class="btn btn-primary" style="height: 100%; width: 20%"> CM </button>
+    <button onclick="handleCreates('MAR-')" id="MAR" value="MAR-" class="btn btn-primary" style="height: 100%; width: 20%"> MAR </button>
+    <button onclick="handleCreates('CAP-')" id="CAP" value="CAP-" class="btn btn-primary" style="height: 100%; width: 20%"> CAP </button>
+    <button onclick="handleCreates('CAP SOIA-')" id="CAP SOIA" value="CAP SOIA-" class="btn btn-primary" style="height: 100%; width: 20%"> CAP SOIA </button>
+    <button onclick="handleCreates('GIN P.-')" id="GIN P." value="GIN P.-" class="btn btn-primary" style="height: 100%; width: 20%"> GIN P. </button>
+    <button onclick="handleCreates('GIN G.-')" id="GIN G." value="GIN G.-" class="btn btn-primary" style="height: 100%; width: 20%"> GIN G. </button>
+    <button onclick="handleCreates('ORZO P.-')" id="ORZO P." value="ORZO P.-" class="btn btn-primary" style="height: 100%; width: 20%"> ORZO P. </button>
+    <button onclick="handleCreates('ORZO G.-')" id="ORZO G." value="ORZO G.-" class="btn btn-primary" style="height: 100%; width: 20%"> ORZO G. </button>
+  </div>
+  <div id="tasks" style="overflow-y: hidden;" class="scrollmenu"></div>
 
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-firestore.js"></script>
@@ -30,6 +67,23 @@
     const tasksDOM = document.getElementById('tasks');
     const taskInputDOM = document.getElementById('taskTitle');
     var anagrafica = [];
+    const dataeora = new Date();
+    const minutes =  dataeora.getMinutes();
+    const hours = dataeora.getHours();
+    const hour = hours & ": " & minutes;
+
+    // form functions
+    function handleCreates(desc) {
+      let ordini = {
+        desc: desc,
+        data: hour,
+        iduser: '',
+        stato: 'open',
+        tavolo: 'banco',
+        idanag: 'monviso'
+      }
+      return firestore.collection('ordini').add(ordini)
+    }
 
     // utility functions
     function cleanData(snapshots) {
@@ -97,10 +151,14 @@
     function createTask(task) {
       const toast = document.createElement('div');
 
-      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 300px; margin-left: 25px" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div><div id="tasks" class="toast-body">' + task.desc+ '</div></div>';
-      
+      descrizioneOrdine = task.desc.split('-');
+      HTMLOrdine = "";
+      for (ordine in descrizioneOrdine) {
+        HTMLOrdine = HTMLOrdine + '<div id="tasks" style="margin-left: -50%" class="toast-body"><br><br><br>' + descrizioneOrdine[ordine] + '</div>';
+      }
+
+      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><button style="padding: 15px" onclick="close("' + task.id.trim() + '")" class="btn btn-primary" >chiudi ordine</button></div>' + HTMLOrdine + '</div>';
       toast.setAttribute('id', task.id);
-      toast.addEventListener("click", (e) => this.close(task.id));
       tasksDOM.append(toast);
     }
 
@@ -151,7 +209,7 @@
 
     
     getUrlParameter();
-    setInterval('fetchTasks()', 2000);
+    setInterval('fetchTasks()', 10000);
   </script>
 </body>
 </html>
