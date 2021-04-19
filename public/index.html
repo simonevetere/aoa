@@ -70,7 +70,7 @@
     const dataeora = new Date();
     const minutes =  dataeora.getMinutes();
     const hours = dataeora.getHours();
-    const hour = hours & ": " & minutes;
+    const hour = hours + " : " + minutes;
 
     // form functions
     function handleCreates(desc) {
@@ -150,6 +150,7 @@
     // dom functions
     function createTask(task) {
       const toast = document.createElement('div');
+      const button = document.createElement('button');
 
       descrizioneOrdine = task.desc.split('-');
       HTMLOrdine = "";
@@ -157,8 +158,11 @@
         HTMLOrdine = HTMLOrdine + '<div id="tasks" style="margin-left: -50%" class="toast-body"><br><br><br>' + descrizioneOrdine[ordine] + '</div>';
       }
 
-      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><button style="padding: 15px" onclick="close("' + task.id.trim() + '")" class="btn btn-primary" >chiudi ordine</button></div>' + HTMLOrdine + '</div>';
+      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div>' + HTMLOrdine + '</div>';
+      button.innerHTML = '<button style="padding: 15px" class="btn btn-primary" >chiudi ordine</button>';
       toast.setAttribute('id', task.id);
+      button.addEventListener("click", (e) => this.close(task.id));
+      tasksDOM.append(button);
       tasksDOM.append(toast);
     }
 
@@ -209,7 +213,7 @@
 
     
     getUrlParameter();
-    setInterval('fetchTasks()', 10000);
+    setInterval('fetchTasks()', 2000);
   </script>
 </body>
 </html>
