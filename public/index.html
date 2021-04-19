@@ -26,7 +26,7 @@
 
   div.scrollmenu div {
     display: inline-block;
-    padding: 14px;
+    font-size: large;
     text-decoration: none;
   }
 
@@ -142,6 +142,7 @@
 
     function close(id){
       document.getElementById(id).remove()
+      document.getElementById(id).remove()
       let updatedOrder = {
         stato: 'closed'
       }
@@ -160,14 +161,15 @@
         HTMLOrdine = HTMLOrdine + '<br><div id="tasks" class="toast-body">' + descrizioneOrdine[ordine] + '</div>';
       }
 
-      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small>' + HTMLOrdine + '</div></div>';
+      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 100%; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small>' + HTMLOrdine + '</div></div>';
       toast.setAttribute('id', task.id);
       tasksDOM.append(toast);
 
       const deleteBtn = document.createElement('button');
       deleteBtn.setAttribute('class', 'btn btn-success text-white mr-1');
-      deleteBtn.setAttribute('style', 'margin-left: -170%;margin-top: 150%; height: 50px;');
+      deleteBtn.setAttribute('style', 'margin-left: -110%;margin-top: 150%; height: 50px;');
       deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      deleteBtn.setAttribute('id', task.id);
       deleteBtn.addEventListener('click', function() {
         return close(task.id)
       })
