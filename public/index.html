@@ -71,7 +71,6 @@
     const minutes =  dataeora.getMinutes();
     const hours = dataeora.getHours();
     const hour = hours + " : " + minutes;
-
     // form functions
     function handleCreates(desc) {
       let ordini = {
@@ -163,9 +162,9 @@
       tasksDOM.append(toast);
 
       const deleteBtn = document.createElement('button');
-      deleteBtn.setAttribute('class', 'btn btn-success col-2 text-white mr-1');
-      deleteBtn.setAttribute('style', 'margin-left: -150%;height: 50px;');
-      deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      deleteBtn.setAttribute('class', 'btn btn-success text-white mr-1');
+      deleteBtn.setAttribute('style', 'margin-left: -170%;height: 50px;');
+      deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
       deleteBtn.addEventListener('click', function() {
         return close(task.id)
       })
