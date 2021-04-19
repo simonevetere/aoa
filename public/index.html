@@ -157,7 +157,7 @@
         HTMLOrdine = HTMLOrdine + '<div id="tasks" style="margin-left: -50%" class="toast-body"><br><br><br>' + descrizioneOrdine[ordine] + '</div>';
       }
 
-      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div>' + HTMLOrdine + '</div>';
+      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 300px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div>' + HTMLOrdine + '</div>';
       toast.setAttribute('id', task.id);
       tasksDOM.append(toast);
 
