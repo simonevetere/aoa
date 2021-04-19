@@ -9,5 +9,6 @@
     }
   ],
   "name": "AOA",
-  "short_name": "AOA"
+  "short_name": "AOA",
+  "orientation": "landscape"
 }
