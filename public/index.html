@@ -134,7 +134,6 @@
     }
 
     function handleDelete(id) {
-      console.log(id);
       return firestore.collection('tasks').doc(id).delete()
       .then(ref => document.getElementById(id).remove())
     }
@@ -151,6 +150,7 @@
     function createTask(task) {
       const toast = document.createElement('div');
       const button = document.createElement('button');
+      const elem = document.createElement('div');
 
       descrizioneOrdine = task.desc.split('-');
       HTMLOrdine = "";
@@ -159,11 +159,19 @@
       }
 
       toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div>' + HTMLOrdine + '</div>';
-      button.innerHTML = '<button style="padding: 15px" class="btn btn-primary" >chiudi ordine</button>';
       toast.setAttribute('id', task.id);
-      button.addEventListener("click", (e) => this.close(task.id));
-      tasksDOM.append(button);
       tasksDOM.append(toast);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.setAttribute('class', 'btn btn-success col-2 text-white mr-1');
+      deleteBtn.setAttribute('style', 'margin-left: -150%;height: 50px;');
+      deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      deleteBtn.addEventListener('click', function() {
+        return close(task.id)
+      })
+      elem.append(deleteBtn);
+
+      tasksDOM.append(elem);
     }
 
     // firebase functions
