@@ -8,9 +8,6 @@
   <link rel="icon" type="image/ico" href="favicon.ico"/>
   <link rel="stylesheet" type="text/css" href="style/addtohomescreen.css">
   <script src="src/addtohomescreen.js"></script>
-  <script>
-  addToHomescreen();
-  </script>
   <style type="text/css">
     div.scrollmenu {
   background-color: white;
@@ -34,20 +31,6 @@
     display: inline-block;
     font-size: large;
     text-decoration: none;
-  }
-
-  {
-    "name": "My beautifull web App", "icons": [
-  }
-  {
-  ,'src"; "favicon.ico", "sizes": "36x36",
-  "type": "image/ico",
-  "density": "0.75"
-  },
-  {
-  "sre": "favicon.ico", "sizes": "48x48",
-  "type": "image/ico",
-  "density": "1.0"
   }
 
   </style>
@@ -90,9 +73,6 @@
     const dataeora = new Date();
     const minutes =  dataeora.getMinutes();
     const hours = dataeora.getHours();
-    if(minutes < 10 ) {
-      minutes = "0" + minutes;
-    }
     const hour = hours + " : " + minutes;
     // form functions
     function handleCreates(desc) {
@@ -245,6 +225,7 @@
 
     getUrlParameter();
     setInterval('fetchTasks()', 2000);
+    addToHomescreen();
   </script>
 </body>
 </html>
