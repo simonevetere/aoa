@@ -70,6 +70,9 @@
     const dataeora = new Date();
     const minutes =  dataeora.getMinutes();
     const hours = dataeora.getHours();
+    if(minutes < 10 ) {
+      minutes = "0" + minutes;
+    }
     const hour = hours + " : " + minutes;
     // form functions
     function handleCreates(desc) {
@@ -154,16 +157,16 @@
       descrizioneOrdine = task.desc.split('-');
       HTMLOrdine = "";
       for (ordine in descrizioneOrdine) {
-        HTMLOrdine = HTMLOrdine + '<div id="tasks" style="margin-left: -50%" class="toast-body"><br><br><br>' + descrizioneOrdine[ordine] + '</div>';
+        HTMLOrdine = HTMLOrdine + '<br><div id="tasks" class="toast-body">' + descrizioneOrdine[ordine] + '</div>';
       }
 
-      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 300px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small></div>' + HTMLOrdine + '</div>';
+      toast.innerHTML = '<div class="toast" style="opacity : 1; height: 500px; margin-left: 25px;display: flex;"><div class="toast-header"><strong class="mr-auto">tavolo: ' +task.tavolo + ' ' + task.iduser +'\xa0\xa0\xa0'+' </strong><small class="text-muted">' + task.data + '</small>' + HTMLOrdine + '</div></div>';
       toast.setAttribute('id', task.id);
       tasksDOM.append(toast);
 
       const deleteBtn = document.createElement('button');
       deleteBtn.setAttribute('class', 'btn btn-success text-white mr-1');
-      deleteBtn.setAttribute('style', 'margin-left: -170%;height: 50px;');
+      deleteBtn.setAttribute('style', 'margin-left: -170%;margin-top: 150%; height: 50px;');
       deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>';
       deleteBtn.addEventListener('click', function() {
         return close(task.id)
@@ -218,7 +221,6 @@
       window.location.search = window.location.search + "&" + params;
     }
 
-    
     getUrlParameter();
     setInterval('fetchTasks()', 2000);
   </script>
